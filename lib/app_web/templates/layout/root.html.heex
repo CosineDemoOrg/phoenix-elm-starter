@@ -18,7 +18,16 @@
         <nav>
           <ul>
             <li><a href="https://hexdocs.pm/phoenix/overview.html">Get Started</a></li>
-            
+            <%= if @conn.assigns[:current_user] do %>
+              <li>Signed in as <%= @conn.assigns.current_user.email %></li>
+              <li><%= link "Sign out", to: Routes.pow_session_path(@conn, :delete), method: :delete %></li>
+            <% else %>
+              <li><%= link "Sign in", to: Routes.pow_session_path(@conn, :new) %></li>
+              <%= if Application.get_env(:app, :pow_assent, [])[:providers] |> Enum.any?() do %>
+                <li><%= link "Sign in with GitHub", to: Routes.pow_assent_authorization_path(@conn, :new, :github) %></li>
+                <li><%= link "Sign in with Google", to: Routes.pow_assent_authorization_path(@conn, :new, :google) %></li>
+              <% end %>
+            <% end %>
           </ul>
         </nav>
         <a href="https://phoenixframework.org/" class="phx-logo">

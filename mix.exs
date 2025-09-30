@@ -56,6 +56,10 @@ defmodule App.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
 
+      # Auth: Pow + PowAssent (OAuth/OIDC providers)
+      {:pow, "~> 1.0.39"},
+      {:pow_assent, "~> 0.4.18"},
+
       # Check test coverage: github.com/parroty/excoveralls
       {:excoveralls, "~> 0.18.0", only: :test},
     ]
