@@ -18,6 +18,7 @@
         <nav>
           <ul>
             <li><a href="https://hexdocs.pm/phoenix/overview.html">Get Started</a></li>
+            <li><%= live_redirect "Dashboard", to: Routes.live_path(@conn, AppWeb.DashboardLive) %></li>
             <%= if @conn.assigns[:current_user] do %>
               <li>Signed in as <%= @conn.assigns.current_user.email %></li>
               <li><%= link "Sign out", to: Routes.pow_session_path(@conn, :delete), method: :delete %></li>
