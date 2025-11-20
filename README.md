@@ -418,6 +418,46 @@ https://hexdocs.pm/phoenix/asset_management.html#esbuild-plugins
 
 <br />
 
+# OAuth Login with Pow + PowAssent
+
+This project includes an OAuth login system using Pow (authentication) and PowAssent (OAuth/OIDC providers).
+
+## Quick start
+
+- Install deps and migrate:
+  - mix deps.get
+  - mix ecto.migrate
+
+- Start the server:
+  - mix phx.server
+
+- Visit http://localhost:4000 and use:
+  - Email/password (Pow)
+  - Social login links (GitHub/Google) if you set the env vars below
+
+## Configure providers
+
+Set environment variables (dev/test/prod as you prefer) before starting the server:
+
+- GitHub:
+  - export GITHUB_CLIENT_ID=your_id
+  - export GITHUB_CLIENT_SECRET=your_secret
+
+- Google:
+  - export GOOGLE_CLIENT_ID=your_id
+  - export GOOGLE_CLIENT_SECRET=your_secret
+
+These are read in config/runtime.exs and wired into PowAssent automatically.
+
+Routes generated:
+
+- /registration, /session (Pow)
+- /auth/:provider, /auth/:provider/callback (PowAssent)
+
+The layout shows Sign in / Sign out and provider links when configured.
+
+<br />
+
 # _Next_
 
 Create a `Phoenix` Endpoint that returns `json`

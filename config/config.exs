@@ -10,6 +10,14 @@ import Config
 config :app,
   ecto_repos: [App.Repo]
 
+# Pow base configuration (runtime provider secrets are set in runtime.exs)
+config :app, :pow,
+  user: App.Users.User,
+  repo: App.Repo,
+  web_module: AppWeb,
+  extensions: [PowAssent],
+  controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks
+
 # Configures the endpoint
 config :app, AppWeb.Endpoint,
   url: [host: "localhost"],

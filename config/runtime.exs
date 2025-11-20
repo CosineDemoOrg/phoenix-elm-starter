@@ -63,3 +63,44 @@ if config_env() == :prod do
     ],
     secret_key_base: secret_key_base
 end
+
+# PowAssent OAuth provider secrets (all envs)
+github_client_id = System.get_env("GITHUB_CLIENT_ID")
+github_client_secret = System.get_env("GITHUB_CLIENT_SECRET")
+google_client_id = System.get_env("GOOGLE_CLIENT_ID")
+google_client_secret = System.get_env("GOOGLE_CLIENT_SECRET")
+
+providers =
+  []
+  |> then(fn acc ->
+    if github_client_id && github_client_secret do
+      [
+        {:github,
+         [
+           client_id: github_client_id,
+           client_secret: github_client_secret,
+           strategy: Assent.Strategy.Github
+         ]}
+        | acc
+      ]
+    else
+      acc
+    end
+  end)
+  |> then(fn acc ->
+    if google_client_id && google_client_secret do
+      [
+        {:google,
+         [
+           client_id: google_client_id,
+           client_secret: google_client_secret,
+           strategy: Assent.Strategy.Google
+         ]}
+        | acc
+      ]
+    else
+      acc
+    end
+  end)
+
+config :app, :pow_assent, providers: providers
